@@ -1,0 +1,49 @@
+@startuml
+' Diagrama de clases para Gato
+
+class Jugador {
+  - nom: str
+  - caracter: str
+  - ganador: bool
+  + __init__(nom, caracter)
+  + realizarTiro(): (int,int)
+  + obtenerSimbolo(): str
+}
+
+class Casilla {
+  - caracter: str
+  - status: bool
+  + __init__()
+  + estaOcupado(): bool
+  + marcar(caracter): bool
+  + getCaracter(): str
+}
+
+class Tablero {
+  - gato: List[Casilla]
+  + __init__()
+  + inicia()
+  + imprime()
+  + asignaTiro(fila:int, col:int, simbolo:str): bool
+}
+
+class Juego {
+  - player1: Jugador
+  - player2: Jugador
+  - tablero: Tablero
+  - turno: Jugador
+  + __init__()
+  + verificarJugada(jugador, fila:int, col:int): bool
+  + solicitarDatos()
+  + cambiarTurno()
+  + iniciarPartida()
+  + guardaPuntaje()
+}
+
+' Relaciones
+Tablero "1" *-- "9" Casilla : contiene
+Juego "1" o-- "1" Tablero : tablero
+Juego "1" --> "0..1" Jugador : player1
+Juego "1" --> "0..1" Jugador : player2
+
+@enduml
